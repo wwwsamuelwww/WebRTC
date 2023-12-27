@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Proyecto Programacion Web WebRTC</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h1 class="title">Proyecto Programacion Web WebRTC</h1>
+    <p id="notification" hidden></p>
+    <div class="entry-modal" id="entry-modal">
+        <p>Crear o unirse a sala</p>
+        <input id="room-input" class="room-input" placeholder="Ingresar id de sala">
+        <div>
+            <button onclick="crearSala()">Crear Sala</button>
+            <button onclick="unirseASala()">Unirse a Sala</button>
+        </div>
+    </div>
+    <div class="meet-area">
+
+       
+        <!-- Remote Video Element-->
+
+        <!-- Local Video Element-->
+        <video id="local-video"></video>
+
+        <div id="user-list"></div>
+       
+    </div>
+</body>
+
+<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+<script src="script.js"></script>
+
+</html>
