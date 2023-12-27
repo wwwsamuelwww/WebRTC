@@ -104,7 +104,6 @@ function unirseASala() {
             local_stream = stream;
             setLocalStream(local_stream);
             notify("Uniéndose a otros participantes");
-            window.alert(activeCalls.length);
             // Llamar a los participantes existentes
             activeCalls.forEach(existingCall => {
                 
