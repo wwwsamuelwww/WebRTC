@@ -7,8 +7,13 @@ var screenStream;
 var peer = null;
 var currentPeer = null;
 var screenSharing = false;
-var connectedPeers = []; 
 var activeCalls = [];
+
+if (activeCalls.length > 1) {
+    document.getElementById('user-list').classList.add('multiple-users');
+} else {
+    document.getElementById('user-list').classList.remove('multiple-users');
+}
 
 function crearSala() {
     console.log("Creando Sala")
@@ -52,7 +57,9 @@ function handleCall(call) {
 }
 
 function callExistingUser(existingCall, peerId, stream) {
-    existingCall.answer(stream);
+    if (existingCall.peer !== peerId) {
+        existingCall.answer(stream);
+    }
 }
 
 function setLocalStream(stream) {
@@ -97,15 +104,24 @@ function unirseASala() {
             local_stream = stream;
             setLocalStream(local_stream);
             notify("Uniéndose a otros participantes");
+            window.alert(activeCalls.length);
+            // Llamar a los participantes existentes
+            activeCalls.forEach(existingCall => {
+                
+                callExistingUser(existingCall, peer.id, local_stream);
+            });
+
+            // Esperar un breve momento antes de realizar la llamada a la sala
             setTimeout(() => {
                 let call = peer.call(room_id, stream);
                 handleCall(call);
-            }, 2000); 
+            }, 2000);
         }, (err) => {
             console.log(err);
         });
     });
 }
+
 
 
 function addUserToUserList(userId, stream) {
@@ -129,4 +145,6 @@ function removeUserFromUserList(userId) {
         userList.removeChild(video);
     }
 }
+
+
 
